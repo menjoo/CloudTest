@@ -69,10 +69,5 @@ env:
 script:
   - git fetch --unshallow
   - ./gradlew :app:assembleDebug :app:assembleAndroidTest --parallel --no-daemon;
-  - ./google-cloud-sdk/bin/gcloud firebase test android run \
-     --type instrumentation \
-     --app $TRAVIS_BUILD_DIR/app/build/outputs/apk/debug/app-debug.apk \
-     --test $TRAVIS_BUILD_DIR/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
-     --device model=Pixel2,version=28,locale=en,orientation=portrait \
-     --num-flaky-test-attempts=4
+  - ./google-cloud-sdk/bin/gcloud firebase test android run --type instrumentation --app $TRAVIS_BUILD_DIR/app/build/outputs/apk/debug/app-debug.apk --test $TRAVIS_BUILD_DIR/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --device model=Pixel2,version=28,locale=en,orientation=portrait
 
