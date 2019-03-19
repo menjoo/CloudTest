@@ -53,11 +53,14 @@ addons:
 before_install:
   - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
   - sudo apt-get update
-  - sudo apt-get install google-cloud-sdk
-  - sudo sed -i -e 's/true/false/' sudo /usr/lib/google-cloud-sdk/lib/googlecloudsdk/core/config.json
-  - gcloud components update
-  - gcloud auth activate-service-account --key-file=$TRAVIS_BUILD_DIR/cloudtest-761e1-2b927e6f525b.json
-  - gcloud config set project cloudtest-761e1
+#  - sudo apt-get install google-cloud-sdk
+#  - sudo sed -i -e 's/true/false/' sudo /usr/lib/google-cloud-sdk/lib/googlecloudsdk/core/config.json
+#  - gcloud components update
+  - curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-239.0.0-linux-x86_64.tar.gz
+  - tar -xzf google-cloud-sdk-239.0.0-linux-x86_64.tar.gz
+  - ./google-cloud-sdk/bin/gcloud init
+  - ./google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=$TRAVIS_BUILD_DIR/cloudtest-761e1-2b927e6f525b.json
+  - ./google-cloud-sdk/bin/gcloud config set project cloudtest-761e1
 
 env:
   global:
@@ -68,7 +71,7 @@ env:
 script:
   - git fetch --unshallow
   - ./gradlew :app:assembleDebug :app:assembleAndroidTest --parallel --no-daemon;
-  - gcloud firebase test android run \
+  - ./google-cloud-sdk/bin/gcloud firebase test android run \
      --type instrumentation \
      --app $TRAVIS_BUILD_DIR/app/build/outputs/apk/debug/app-debug.apk \
      --test $TRAVIS_BUILD_DIR/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
