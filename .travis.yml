@@ -55,6 +55,8 @@ before_install:
   - sudo apt-get update
   - curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-239.0.0-linux-x86_64.tar.gz
   - tar -xzf google-cloud-sdk-239.0.0-linux-x86_64.tar.gz
+  - ./google-cloud-sdk/bin/gcloud components update
+  # TODO replace with this solution https://gist.github.com/kzap/5819745
   - ./google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=$TRAVIS_BUILD_DIR/cloudtest-761e1-2b927e6f525b.json
   - ./google-cloud-sdk/bin/gcloud config set project cloudtest-761e1
 
