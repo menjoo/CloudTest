@@ -54,6 +54,7 @@ before_install:
   - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
   - sudo apt-get update
   - sudo apt-get install google-cloud-sdk
+  - sudo sed -i -e 's/true/false/' /usr/lib/google-cloud-sdk/lib/googlecloudsdk/core/config.json
   - gcloud components update
   - gcloud auth activate-service-account --key-file=$TRAVIS_BUILD_DIR/cloudtest-761e1-2b927e6f525b.json
   - gcloud config set project cloudtest-761e1
