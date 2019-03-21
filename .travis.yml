@@ -44,28 +44,28 @@ cache:
     - $HOME/.gradle/wrapper/
 
 # for NDK
-#addons:
-#  apt:
-#    packages:
-#    - libc6:i386
-#    - unzip
+addons:
+  apt:
+    packages:
+    - libc6:i386
+    - unzip
 
 before_install:
-  #- sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-  #- sudo apt-get update
+  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+  - sudo apt-get update
 
   # Setting up gcloud cli and authenticate
   - curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-239.0.0-linux-x86_64.tar.gz
   - tar -xzf google-cloud-sdk-239.0.0-linux-x86_64.tar.gz
   - ./google-cloud-sdk/bin/gcloud components update
   - openssl aes-256-cbc -K $encrypted_53bab4cf9b0f_key -iv $encrypted_53bab4cf9b0f_iv -in gcloud-travis-service-account.json.enc -out gcloud-travis-service-account.json -d
-  - ./google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=$TRAVIS_BUILD_DIR/gcloud-travis-service-account.json
+  - ./google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=gcloud-travis-service-account.json
   - ./google-cloud-sdk/bin/gcloud config set project cloudtest-761e1
 
-#env:
-#  global:
-#  - TERM=dumb
-#  - ANDROID_NDK_HOME=./android-ndk
+env:
+  global:
+  - TERM=dumb
+  - ANDROID_NDK_HOME=./android-ndk
 
 
 script:
