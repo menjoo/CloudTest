@@ -53,10 +53,13 @@ addons:
 before_install:
   - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
   - sudo apt-get update
+
+  # seeting up gcloud cli and authenticate
   - curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-239.0.0-linux-x86_64.tar.gz
   - tar -xzf google-cloud-sdk-239.0.0-linux-x86_64.tar.gz
   - ./google-cloud-sdk/bin/gcloud components update
   # TODO replace with this solution https://gist.github.com/kzap/5819745
+  - openssl aes-256-cbc -K $encrypted_53bab4cf9b0f_key -iv $encrypted_53bab4cf9b0f_iv -in cloudtest-761e1-2b927e6f525b.json.enc -out cloudtest-761e1-2b927e6f525b.json -d
   - ./google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=$TRAVIS_BUILD_DIR/cloudtest-761e1-2b927e6f525b.json
   - ./google-cloud-sdk/bin/gcloud config set project cloudtest-761e1
 
