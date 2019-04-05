@@ -87,11 +87,10 @@ script:
   - test_result_table=$(cat firebase-androidTest-run.log | sed -e '1,/Instrumentation testing complete./d')
 
   # If the table contains "Failed"
-  - if [[ $test_result_table == *"Failed"* ]]; then
-    # androidTest run failed! Post some info to Slack
-    echo "androidTest have failed, sending Slack notification";
-    curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"Firebase TestLab results\nTravis build ${TRAVIS_BRANCH}\n \`\`\`${test_result_table}\`\`\`\"}" https://hooks.slack.com/services/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
-    # Make the build fail
-    exit 1;
+  - |
+    if [[ $test_result_table == *"Failed"* ]]; then
+      echo "androidTest have failed, sending Slack notification"
+      curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"Firebase TestLab results\nTravis build ${TRAVIS_BRANCH}\n \`\`\`${test_result_table}\`\`\`\"}" https://hooks.slack.com/services/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
+      exit 1
     fi
 
