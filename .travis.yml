@@ -78,19 +78,19 @@ script:
     --type instrumentation \
     --app $TRAVIS_BUILD_DIR/app/build/outputs/apk/debug/app-debug.apk \
     --test $TRAVIS_BUILD_DIR/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
-    --device model=Pixel2,version=28,locale=en,orientation=portrait > firebase-androidTest-run.log || true
+    --device model=Pixel2,version=28,locale=en,orientation=portrait # > firebase-androidTest-run.log || true
 
   # print the testing logs afterwards (to not hide it from the log on Travis)
-  - cat firebase-androidTest-run.log
+  # - cat firebase-androidTest-run.log
 
   # From the saved output, take everything after the line "Instrumentation testing complete."
-  - test_result_table=$(cat firebase-androidTest-run.log | sed -e '1,/Instrumentation testing complete./d')
+  # - test_result_table=$(cat firebase-androidTest-run.log | sed -e '1,/Instrumentation testing complete./d')
 
   # If the table contains "Failed"
-  - |
-    if [[ $test_result_table == *"Failed"* ]]; then
-      echo "androidTest have failed, sending Slack notification"
-      curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"Firebase TestLab results\nTravis build ${TRAVIS_BRANCH}\n \`\`\`${test_result_table}\`\`\`\"}" https://hooks.slack.com/services/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
-      exit 1
-    fi
+  # - |
+  #   if [[ $test_result_table == *"Failed"* ]]; then
+  #     echo "androidTest have failed, sending Slack notification"
+  #     curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"Firebase TestLab results\nTravis build ${TRAVIS_BRANCH}\n \`\`\`${test_result_table}\`\`\`\"}" https://hooks.slack.com/services/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
+  #     exit 1
+  #   fi
 
