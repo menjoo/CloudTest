@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("com.menno.firetestlab wil fail", appContext.packageName)
+        assertEquals("com.menno.firetestlab", appContext.packageName)
     }
 }
