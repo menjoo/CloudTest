@@ -74,11 +74,7 @@ script:
   # Run the tests
   # Also, put the output in a log so we can analyze it afterwards
   # Also, do not exit yet if tests fail, we want to post the results to slack
-  - ./google-cloud-sdk/bin/gcloud firebase test android run \
-    --type instrumentation \
-    --app $TRAVIS_BUILD_DIR/app/build/outputs/apk/debug/app-debug.apk \
-    --test $TRAVIS_BUILD_DIR/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
-    --device model=Pixel2,version=28,locale=en,orientation=portrait # > firebase-androidTest-run.log || true
+  - ./google-cloud-sdk/bin/gcloud firebase test android run --type instrumentation --app $TRAVIS_BUILD_DIR/app/build/outputs/apk/debug/app-debug.apk --test $TRAVIS_BUILD_DIR/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --device model=Pixel2,version=28,locale=en,orientation=portrait
 
   # print the testing logs afterwards (to not hide it from the log on Travis)
   # - cat firebase-androidTest-run.log
